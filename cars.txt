@@ -4,3 +4,4 @@ honda
 mitsubishi
 suzuki
 ford
+isuzu
