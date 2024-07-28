@@ -3,3 +3,4 @@ lambo
 honda
 mitsubishi
 suzuki
+cr
