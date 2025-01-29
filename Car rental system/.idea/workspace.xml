@@ -31,6 +31,7 @@
     &quot;Python.CarRentalSystem.executor&quot;: &quot;Run&quot;,
     &quot;Python.Main(OOP).executor&quot;: &quot;Run&quot;,
     &quot;Python.booking.executor&quot;: &quot;Run&quot;,
+    &quot;Python.car_rental_system.executor&quot;: &quot;Run&quot;,
     &quot;Python.initialize_database.executor&quot;: &quot;Run&quot;,
     &quot;Python.main(OOP).executor&quot;: &quot;Run&quot;,
     &quot;Python.main(OOP-2).executor&quot;: &quot;Run&quot;,

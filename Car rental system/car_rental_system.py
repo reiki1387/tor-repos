@@ -1,44 +1,39 @@
 from user import User
 from car import Car
 from booking import Booking
+#user = User()  #Global. not good practice
 
 class CarRentalSystem:
-    # def __init__(self):
-    #     self.current_user = None
-    _instance = None  # class variable to hold the single instance
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)  # create the instance if it doesn't exist
-        return cls._instance
-
+    #user = User()   #class level attribute, do not allow dependency injection. For utility class only.
     def __init__(self):
-        if not hasattr(self, 'initialized'):  # Ensures the constructor runs only once
-            self.initialized = True
-            self.current_user = None
+        #instance attribute, for encapsulation and to be able to do dependency injection to Bookings
+        self.user = User()  # Singleton instance, to get user_role from singleton class
+        self.bookings = Booking(self.user)  # Dependency Injection. Inject into Bookings
+        self.car = Car()
 
     def main_menu(self):
+
         while True:
             print("\nCar Rental System")
             print("1. Register User")
             print("2. Login")
             print("3. Exit")
             choice = input("Choose an option: ")
-
             if choice == "1":
-                User.register_user()
+                self.user.register_user()
             elif choice == "2":
-                self.current_user = User.login_user()  # assign return value (object)
-                if self.current_user:   #check if truthy or falsy
-                    if self.current_user.get_role() == "admin":
+                log_in_success =self.user.login_user()
+                if log_in_success:
+                    if self.user.role == "admin":
                         self.admin_menu()
-                    elif self.current_user.get_role() == "customer":
+                    elif self.user.role == "customer":
                         self.customer_menu()
             elif choice == "3":
                 print("Exiting the system. Goodbye!")
                 break
             else:
                 print("Invalid choice. Try again.")
+
 
     def admin_menu(self):
         while True:
@@ -52,22 +47,24 @@ class CarRentalSystem:
             choice = input("Choose an option: ")
 
             if choice == "1":
-                Car.add_car()
+                self.car.add_car()
             elif choice == "2":
-                Car.update_car()
+                self.car.update_car()
             elif choice == "3":
-                car_id = input("Enter car ID to delete: ")
-                Car.delete_car(car_id)
+                Car.delete_car()  #static method. Using class name
             elif choice == "4":
-                Car.view_cars()
+                Car.view_cars()   #static method. Using class name
             elif choice == "5":
-                Booking.manage_bookings()
+                self.bookings.manage_bookings()
             elif choice == "6":
                 break
             else:
                 print("Invalid choice. Try again.")
 
+
+
     def customer_menu(self):
+
         while True:
             print("\nCustomer Menu")
             print("1. View Cars")
@@ -78,13 +75,13 @@ class CarRentalSystem:
             choice = input("Choose an option: ")
 
             if choice == "1":
-                Car.view_cars()
+                Car.view_cars()    #static method. Using class name
             elif choice == "2":
-                Booking.book_car(self.current_user.user_id)
+                self.bookings.book_car()
             elif choice == "3":
-                Booking.view_bookings(self.current_user.user_id)
+                self.bookings.view_bookings()
             elif choice == "4":
-                Booking.cancel_booking(self.current_user.user_id)
+                self.bookings.cancel_booking()
             elif choice == "5":
                 break
             else:
