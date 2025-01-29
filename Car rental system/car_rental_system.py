@@ -61,8 +61,6 @@ class CarRentalSystem:
             else:
                 print("Invalid choice. Try again.")
 
-
-
     def customer_menu(self):
 
         while True:

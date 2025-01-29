@@ -4,7 +4,6 @@ from tabulate import tabulate
 DB_FILE = "car_rental.db"
 
 class Car:
-   #def __init__(self, car_id, make, model, year, mileage, price_per_day, available_now, min_rental_days, max_rental_days):
     def __init__(self):
         self.car_id = None
         self.make = None
@@ -66,7 +65,6 @@ class Car:
             self.max_rental_days = int(get_input("Maximum rental period (days): ", is_positive_integer,
                                             "Please enter a valid positive number."))
 
-
     def add_car(self):
         Car.view_cars()  # Display the current list of cars
         print("\nAdd a new car")
@@ -93,7 +91,7 @@ class Car:
 
     def update_car(self):
         Car.view_cars()  # Display the current list of cars
-        print("\nUpdate car details")
+        print("\nUpdate car details. Press \"Enter\" to leave blank if no changes to be made")
         car_id = input("Enter the Car ID to update: ").strip()
 
         if not car_id:
@@ -107,41 +105,69 @@ class Car:
                 car = cursor.fetchone()
 
             if car:
-                self.get_input_from_user()
 
-                #print("Leave fields blank if no update is needed.")
+                # No need for try-except here since strings don’t cause type errors.
+                self.make = input("Enter make: ").strip() or car[1]
+                self.model = input("Enter model: ").strip() or car[2]
 
-                # Ask for input. If user leave blank previous database value will be store again
-                #store what is in the data base if input is blank
-                self.make = self.make if self.make not in (None, '') else car[1]
-                self.model = self.model if self.model not in (None, '') else car[2]
-                self.year = self.year if self.year not in (None, '') else car[3]
-                self.mileage = self.mileage if self.mileage not in (None, '') else car[4]
-                self.price_per_day = self.price_per_day if self.price_per_day not in (None, '') else car[5]
-                self.available_now = self.available_now if self.available_now not in (None, '') else car[6]
-                self.min_rental_days = self.min_rental_days if self.min_rental_days not in (None, '') else car[7]
-                self.max_rental_days = self.max_rental_days if self.max_rental_days not in (None, '') else car[8]
+                # Using try-except for numeric inputs to catch conversion errors.
+                while True:
+                    try:
+                        user_input = input("Enter year: ").strip()
+                        self.year = int(user_input) if user_input else car[3]
+                        break
+                    except ValueError:
+                        print("Invalid input. Please enter a valid year (e.g., 2022).")
 
+                while True:
+                    try:
+                        user_input = input("Enter mileage: ").strip()
+                        self.mileage = int(user_input) if user_input else car[4]
+                        break
+                    except ValueError:
+                        print("Invalid input. Please enter a valid mileage.")
 
-                # make = Car.get_input(f"Make ({car[1]}): ", car[1])
-                # model = Car.get_input(f"Model ({car[2]}): ", car[2])
-                # year = Car.get_numeric_input(f"Year ({car[3]}): ", car[3], "year")
-                # mileage = Car.get_numeric_input(f"Mileage ({car[4]}): ", car[4], "mileage")
-                # price_per_day = Car.get_float_input(f"Price per day ({car[5]}): ", car[5])
-                # available_now = Car.get_availability_status()
-                # min_rent_period = Car.get_numeric_input(
-                #     f"Minimum rental period ({car[7]}): ", car[7], "minimum rental period"
-                # )
-                # max_rent_period = Car.get_numeric_input(
-                #     f"Maximum rental period ({car[8]}): ", car[8], "maximum rental period"
-                # )
+                while True:
+                    try:
+                        user_input = input("Enter price per day: ").strip()
+                        self.price_per_day = float(user_input) if user_input else car[5]
+                        break
+                    except ValueError:
+                        print("Invalid input. Please enter a valid price (e.g., 29.99).")
+
+                while True:
+                    user_input = input("Is the car available now? (yes/no): ").strip().lower()
+
+                    if not user_input:
+                        self.available_now = int(car[6])
+                        break
+                    elif user_input == "yes":
+                        self.available_now = 1
+                        break
+                    elif user_input == "no":
+                        self.available_now = 0
+                        break
+                    else:
+                        print("Invalid input. Please enter 'yes' or 'no'.")
+
+                while True:
+                    try:
+                        user_input = input("Enter minimum rental days: ").strip()
+                        self.min_rental_days = int(user_input) if user_input else car[7]
+                        break
+                    except ValueError:
+                        print("Invalid input. Please enter a valid number.")
+
+                while True:
+                    try:
+                        user_input = input("Enter maximum rental days: ").strip()
+                        self.max_rental_days = int(user_input) if user_input else car[8]
+                        break
+                    except ValueError:
+                        print("Invalid input. Please enter a valid number.")
+
 
                 # Update the car in the database
-                # Car.update_car_in_db(
-                #     cursor, car_id, self.make, self.model, self.year, self.price_per_day, self.mileage,
-                #     self.available_now, self.min_rent_period, self.max_rent_period
-                # )
-
                 cursor.execute(
                     """
                     UPDATE cars SET make = ?, model = ?, year = ?, price_per_day = ?, mileage = ?, available_now = ?,
@@ -163,72 +189,6 @@ class Car:
             print(f"An unexpected error occurred: {e}")
         finally:
             print("Update process completed.\n")
-
-    # @staticmethod
-    # def fetch_car_details(cursor, car_id):
-    #     """
-    #     Fetch car details from the database for the given car ID.
-    #     """
-    #     cursor.execute("SELECT * FROM cars WHERE id = ?", (car_id,))
-    #     return cursor.fetchone()
-
-    # @staticmethod
-    # def get_input(prompt, default):
-    #     """
-    #     Get input from the user with a default value if the input is empty.
-    #     """
-    #     return input(prompt).strip() or default
-
-    # @staticmethod
-    # def get_numeric_input(prompt, default, field_name):
-    #     """
-    #     Get numeric input (integer) from the user with a default value if the input is empty.
-    #     """
-    #     value = input(prompt).strip()
-    #     if value:
-    #         if not value.isdigit():
-    #             print(f"Invalid input for {field_name}. Please enter a valid number.")
-    #             return None
-    #         return value
-    #     return default
-    #
-    # @staticmethod
-    # def get_float_input(prompt, default):
-    #     """
-    #     Get float input from the user with a default value if the input is empty.
-    #     """
-    #     value = input(prompt).strip()
-    #     try:
-    #         return float(value) if value else default
-    #     except ValueError:
-    #         print("Invalid input. Please enter a valid number.")
-    #         return None
-
-    # @staticmethod
-    # def get_availability_status():
-    #     """
-    #     Get the availability status from the user as yes/no and return as 1/0.
-    #     """
-    #     while True:
-    #         available_now = input("Is the car available now? (yes/no): ").strip().lower()
-    #         if available_now in ["yes", "no"]:
-    #             return 1 if available_now == "yes" else 0
-    #         print("Invalid input. Please enter 'yes' or 'no'.")
-
-    # @staticmethod
-    # def update_car_in_db(cursor, car_id, make, model, year, price_per_day, mileage, available_now, min_rent_period,
-    #                      max_rent_period):
-    #     """
-    #     Update the car details in the database.
-    #     """
-    #     cursor.execute(
-    #         """
-    #         UPDATE cars SET make = ?, model = ?, year = ?, price_per_day = ?, mileage = ?, available_now = ?,
-    #         min_rent_period = ?, max_rent_period = ? WHERE id = ?
-    #         """,
-    #         (make, model, year, price_per_day, mileage, available_now, min_rent_period, max_rent_period, car_id)
-    #     )
-
 
 
     @staticmethod
