@@ -11,7 +11,7 @@ class User:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, user_id=None, username=None, password=None, role=None):
+    def __init__(self, user_id=None, username=None, role=None):
         if not hasattr(self, '_initialized'):
             self.user_id = user_id   # used by booking
             self.role = role      # used by car_rental_system
@@ -21,15 +21,39 @@ class User:
             # self.password = password
 
 
-    def check_username_availability(self, cursor):
-        # Check if the username already exists in the database
-        cursor.execute("SELECT * FROM users WHERE username = ?", (self.username,))
-        existing_user = cursor.fetchone()
+    def get_valid_username(self, cursor):
+        """
+        Continuously prompts the user for a username until an available one is provided.
+        """
+        while True:
+            self.username = input("Enter username: ").strip()
 
-        # handles the same username
-        if existing_user:
-            print("This username is already taken. Please choose another.")
-            raise ValueError  # Raise an exception if username is taken
+            if not self.username:
+                print("Username cannot be empty. Please enter a valid username.")
+                continue  # Ask again if the input is empty
+
+            cursor.execute("SELECT * FROM users WHERE username = ?", (self.username,))
+            existing_user = cursor.fetchone()
+
+            if existing_user:
+                print("This username is already taken. Please choose another.")
+            else:
+                print(f"Username '{self.username}' is available!")
+                break  # Exit loop when a valid username is found
+
+
+    def register_admin(self):
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+
+        self.get_valid_username(cursor)
+
+        password = input("Enter password: ")
+        role = "admin"
+        cursor.execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
+                       (self.username, password, role))
+        conn.commit()
+        conn.close()
 
 
     def register_user(self):
@@ -37,22 +61,14 @@ class User:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
 
-        # Ask for username, password until username is available
-        while True:
-            self.username = input("Enter username: ")
-            try:
-                self.check_username_availability(cursor)    # Check if username is available
-            except ValueError:
-                continue      # Username is taken, continue the loop
-            else:
-                print(f"Username {self.username} is available!")
-                break  # Exit the loop if username is available
+        self.get_valid_username(cursor)
 
         password = input("Enter password: ")
 
+
         # Ask the user to choose a role: admin or customer
         while True:
-            role = input("Enter role (admin/customer): ").lower()
+            role = input("Enter role. \"admin\" or \"customer\"): ").lower()
             if role in ['admin', 'customer']:
                 break
             else:

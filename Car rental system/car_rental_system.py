@@ -15,12 +15,13 @@ class CarRentalSystem:
 
         while True:
             print("\nCar Rental System")
-            print("1. Register User")
+            print("1. Register admin")
             print("2. Login")
             print("3. Exit")
             choice = input("Choose an option: ")
             if choice == "1":
-                self.user.register_user()
+                # self.user.register_user()
+                self.user.register_admin()
             elif choice == "2":
                 log_in_success =self.user.login_user()
                 if log_in_success:
@@ -38,25 +39,28 @@ class CarRentalSystem:
     def admin_menu(self):
         while True:
             print("\nAdmin Menu")
-            print("1. Add Car")
-            print("2. Update Car")
-            print("3. Delete Car")
-            print("4. View Cars")
-            print("5. Manage All Bookings")
-            print("6. Logout")
+            print("1. Register user")
+            print("2. Add Car")
+            print("3. Update Car")
+            print("4. Delete Car")
+            print("5. View Cars")
+            print("6. Manage All Bookings")
+            print("7. Logout")
             choice = input("Choose an option: ")
 
             if choice == "1":
-                self.car.add_car()
+                self.user.register_user()
             elif choice == "2":
-                self.car.update_car()
+                self.car.add_car()
             elif choice == "3":
-                Car.delete_car()  #static method. Using class name
+                self.car.update_car()
             elif choice == "4":
-                Car.view_cars()   #static method. Using class name
+                Car.delete_car()  #static method. Using class name
             elif choice == "5":
-                self.bookings.manage_bookings()
+                Car.view_cars()   #static method. Using class name
             elif choice == "6":
+                self.bookings.manage_bookings()
+            elif choice == "7":
                 break
             else:
                 print("Invalid choice. Try again.")

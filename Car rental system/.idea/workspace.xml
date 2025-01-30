@@ -25,29 +25,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Booking.executor&quot;: &quot;Run&quot;,
-    &quot;Python.CarRentalSystem.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Main(OOP).executor&quot;: &quot;Run&quot;,
-    &quot;Python.booking.executor&quot;: &quot;Run&quot;,
-    &quot;Python.car_rental_system.executor&quot;: &quot;Run&quot;,
-    &quot;Python.initialize_database.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main(OOP).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main(OOP-2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main(OOP2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main(OOP3).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main(OPP-2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.system.executor&quot;: &quot;Run&quot;,
-    &quot;Python.user.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/FRED/Desktop/Tips for Python_exercises(2).ipynb&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Booking.executor": "Run",
+    "Python.CarRentalSystem.executor": "Run",
+    "Python.Main(OOP).executor": "Run",
+    "Python.booking.executor": "Run",
+    "Python.car_rental_system.executor": "Run",
+    "Python.initialize_database.executor": "Run",
+    "Python.main(OOP).executor": "Run",
+    "Python.main(OOP-2).executor": "Run",
+    "Python.main(OOP2).executor": "Run",
+    "Python.main(OOP3).executor": "Run",
+    "Python.main(OPP-2).executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.system.executor": "Run",
+    "Python.user.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/FRED/Desktop/Tips for Python_exercises(2).ipynb",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="user" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Car rental system" />
