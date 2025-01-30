@@ -15,15 +15,25 @@ class Car:
         self.min_rental_days = None
         self.max_rental_days = None
 
-    def get_input_from_user (self):
+
+
+    # This method and one of its nested function has a default parameter value "None" to makes the parameter
+    # optional when called by the other method that does not provide the required parameter.
+    def get_input_from_user(self, defaults=None):
         # Validation helper function for input
-        def get_input(prompt, validation_func, error_message):
-            while True:
+        def get_input(prompt, validation_func, error_message, default=None):
+            while True: #continue asking for input as long as it displays error message
                 value = input(prompt).strip()
-                if validation_func(value):
-                    return value
+
+                if value:  # If user provides input, validate it
+                    if validation_func(value):
+                        return value
+                    else:
+                        print(error_message)
+                elif default is not None:  # Allow blank input for updates
+                    return default  #returns the value from database, if user leaves input blank
                 else:
-                    print(error_message)
+                    print(error_message) #If user leaves input blank while there is nothing in the database, prompt again
 
         # Validation functions
         def is_non_empty(value):
@@ -36,34 +46,53 @@ class Car:
             return value in ["yes", "no"]
 
         def is_positive_integer(value):
-            return value.isdigit() and int(value) > 0 and bool(value)
+            return value.isdigit() and int(value) > 0
 
-        # Collect inputs
-        # car_id = get_input("Car ID: ", is_positive_integer, "Car ID cannot be blank.")
-        self.make = get_input("Make: ", is_non_empty, "Make cannot be blank.")
-        self.model = get_input("Model: ", is_non_empty, "Model cannot be blank.")
-        self.year = get_input("Year: ", is_valid_year, "Please enter a valid 4-digit year.")
-        self.mileage = get_input("Mileage: ", is_positive_integer, "Please enter a number mileage.")
-        self.price_per_day = get_input("Price per day: ", is_positive_integer, "Please enter a number")
-        self.available_now = get_input("Is the car available now? (yes/no): ", is_valid_availability,
-                                  "Invalid input. Please enter 'yes' or 'no'.")
+        # Use defaults for updates, otherwise force input for new entries
+        # the second argument is an application of higher order function/function reference/Firs-class function
+        # the 4th argument is an expression that evaluates to a value in the dictionary if it is received as a parameter
+        self.make = get_input("Make: ", is_non_empty, "Make cannot be blank.",
+                              defaults.get("make") if defaults else None)
+        self.model = get_input("Model: ", is_non_empty, "Model cannot be blank.",
+                               defaults.get("model") if defaults else None)
+        self.year = get_input("Year: ", is_valid_year, "Please enter a valid 4-digit year.",
+                              defaults.get("year") if defaults else None)
+        self.mileage = get_input("Mileage: ", is_positive_integer, "Please enter a number mileage.",
+                                 defaults.get("mileage") if defaults else None)
+        self.price_per_day = get_input("Price per day: ", is_positive_integer, "Please enter"
+                                             " a number.", defaults.get("price_per_day") if defaults else None)
 
-        #converts string to boolean
-        self.available_now = 1 if self.available_now == "yes" else 0
 
-        # Handle rental period with validation
-        self.min_rental_days = int(
-            get_input("Minimum rental period (days): ", is_positive_integer, "Please enter a valid positive number."))
-        self.max_rental_days = int(
-            get_input("Maximum rental period (days): ", is_positive_integer, "Please enter a valid positive number."))
+        # Line 118, check if parameter "defaults" has value and "available now" is equal to yes. I use "==1" to handle
+        # the problem wherein when the database has a value of "no", it will be changed to "yes" due to the result of
+        # this expression if the user does not input anything.
+        #If admin is adding a car,there is nothing in the database, and admin leaves it blank, the availability will
+        # defaults to "no"
+        availability_default = "yes" if defaults and defaults.get("available_now")==1 else "no"
 
-        # Ensure the minimum rent period is less than or equal to the maximum rent period
+        self.available_now = get_input("Is the car available now? (yes/no), If new car and no input = no: ",
+                                       is_valid_availability, "Invalid input. Please enter 'yes' or 'no'.",
+                                        availability_default)
+
+        self.available_now = 1 if self.available_now == "yes" else 0  # Convert to boolean
+
+        self.min_rental_days = int(get_input("Minimum rental period (days): ", is_positive_integer,
+                                         "Please enter a valid positive number.",
+                                         defaults.get("min_rental_days") if defaults else None))
+        self.max_rental_days = int(get_input("Maximum rental period (days): ", is_positive_integer,
+                                         "Please enter a valid positive number.",
+                                         defaults.get("max_rental_days") if defaults else None))
+
+
+        # Ensure min rental days is not greater than max rental days
         while self.min_rental_days > self.max_rental_days:
             print("Minimum rental period cannot be greater than maximum rental period. Please try again.")
             self.min_rental_days = int(get_input("Minimum rental period (days): ", is_positive_integer,
-                                            "Please enter a valid positive number."))
+                                                 "Please enter a valid positive number.",
+                                                 defaults.get("min_rental_days") if defaults else None))
             self.max_rental_days = int(get_input("Maximum rental period (days): ", is_positive_integer,
-                                            "Please enter a valid positive number."))
+                                                 "Please enter a valid positive number.",
+                                                 defaults.get("max_rental_days") if defaults else None))
 
     def add_car(self):
         Car.view_cars()  # Display the current list of cars
@@ -88,12 +117,11 @@ class Car:
 
         print("Car added successfully!\n")
 
-
     def update_car(self):
-        Car.view_cars()  # Display the current list of cars
-        print("\nUpdate car details. Press \"Enter\" to leave blank if no changes to be made")
-        car_id = input("Enter the Car ID to update: ").strip()
+        Car.view_cars()
+        print("\nUpdate car details. Press \"Enter\" to leave blank if no changes are needed")
 
+        car_id = input("Enter the Car ID to update: ").strip()
         if not car_id:
             print("Car ID cannot be empty.\n")
             return
@@ -105,90 +133,42 @@ class Car:
                 car = cursor.fetchone()
 
             if car:
+                # Map database row to dictionary for defaults
+                defaults = {
+                    "make": car[1],
+                    "model": car[2],
+                    "year": car[3],
+                    "mileage": car[4],
+                    "price_per_day": car[5],
+                    "available_now": car[6],
+                    "min_rental_days": car[7],
+                    "max_rental_days": car[8]
+                }
 
-                # No need for try-except here since strings don’t cause type errors.
-                self.make = input("Enter make: ").strip() or car[1]
-                self.model = input("Enter model: ").strip() or car[2]
+                self.get_input_from_user(defaults)  # Pass defaults
 
-                # Using try-except for numeric inputs to catch conversion errors.
-                while True:
-                    try:
-                        user_input = input("Enter year: ").strip()
-                        self.year = int(user_input) if user_input else car[3]
-                        break
-                    except ValueError:
-                        print("Invalid input. Please enter a valid year (e.g., 2022).")
-
-                while True:
-                    try:
-                        user_input = input("Enter mileage: ").strip()
-                        self.mileage = int(user_input) if user_input else car[4]
-                        break
-                    except ValueError:
-                        print("Invalid input. Please enter a valid mileage.")
-
-                while True:
-                    try:
-                        user_input = input("Enter price per day: ").strip()
-                        self.price_per_day = float(user_input) if user_input else car[5]
-                        break
-                    except ValueError:
-                        print("Invalid input. Please enter a valid price (e.g., 29.99).")
-
-                while True:
-                    user_input = input("Is the car available now? (yes/no): ").strip().lower()
-
-                    if not user_input:
-                        self.available_now = int(car[6])
-                        break
-                    elif user_input == "yes":
-                        self.available_now = 1
-                        break
-                    elif user_input == "no":
-                        self.available_now = 0
-                        break
-                    else:
-                        print("Invalid input. Please enter 'yes' or 'no'.")
-
-                while True:
-                    try:
-                        user_input = input("Enter minimum rental days: ").strip()
-                        self.min_rental_days = int(user_input) if user_input else car[7]
-                        break
-                    except ValueError:
-                        print("Invalid input. Please enter a valid number.")
-
-                while True:
-                    try:
-                        user_input = input("Enter maximum rental days: ").strip()
-                        self.max_rental_days = int(user_input) if user_input else car[8]
-                        break
-                    except ValueError:
-                        print("Invalid input. Please enter a valid number.")
-
-
-                # Update the car in the database
-                cursor.execute(
-                    """
-                    UPDATE cars SET make = ?, model = ?, year = ?, price_per_day = ?, mileage = ?, available_now = ?,
-                    min_rental_days = ?, max_rental_days = ? WHERE id = ?
-                    """,
-                    (self.make, self.model, self.year, self.price_per_day, self.mileage,
-                     self.available_now, self.min_rental_days, self.max_rental_days, car_id)
-                )
-
-                conn.commit()
-                conn.close()
+                with sqlite3.connect(DB_FILE) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """
+                        UPDATE cars SET make = ?, model = ?, year = ?, price_per_day = ?, mileage = ?, available_now = ?,
+                        min_rental_days = ?, max_rental_days = ? WHERE id = ?
+                        """,
+                        (self.make, self.model, self.year, self.price_per_day, self.mileage,
+                         self.available_now, self.min_rental_days, self.max_rental_days, car_id)
+                    )
 
                 print("Car updated successfully!\n")
             else:
                 print("Car ID not found.\n")
+
         except sqlite3.Error as e:
             print(f"An error occurred while accessing the database: {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
         finally:
             print("Update process completed.\n")
+
 
 
     @staticmethod
