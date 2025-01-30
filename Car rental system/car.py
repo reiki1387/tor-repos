@@ -162,12 +162,14 @@ class Car:
             else:
                 print("Car ID not found.\n")
 
-        except sqlite3.Error as e:
+        except sqlite3.Error as e:   #handles database related errors
             print(f"An error occurred while accessing the database: {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
-        finally:
-            print("Update process completed.\n")
+
+
+
+
 
 
 
@@ -192,6 +194,10 @@ class Car:
             print("Car ID not found")
 
         conn.close()
+
+
+
+
 
     @staticmethod
     def view_cars():

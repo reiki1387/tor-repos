@@ -59,7 +59,8 @@ def initialize_database():
         ]
 
         cursor.executemany('''
-            INSERT INTO cars (id, make, model, year, mileage, price_per_day, available_now, min_rental_days, max_rental_days)
+            INSERT INTO cars (id, make, model, year, mileage, price_per_day, available_now, min_rental_days, 
+            max_rental_days)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )
         ''', initial_cars)
         print("Initial car data inserted into the database.")

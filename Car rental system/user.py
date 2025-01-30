@@ -16,9 +16,8 @@ class User:
             self.user_id = user_id   # used by booking
             self.role = role      # used by car_rental_system
             self._initialized = True
-
             self.username = username
-            # self.password = password
+
 
 
     def get_valid_username(self, cursor):
@@ -42,20 +41,6 @@ class User:
                 break  # Exit loop when a valid username is found
 
 
-    def register_admin(self):
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-
-        self.get_valid_username(cursor)
-
-        password = input("Enter password: ")
-        role = "admin"
-        cursor.execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
-                       (self.username, password, role))
-        conn.commit()
-        conn.close()
-
-
     def register_user(self):
         print("\nRegister New User:")
         conn = sqlite3.connect(DB_FILE)
@@ -64,7 +49,6 @@ class User:
         self.get_valid_username(cursor)
 
         password = input("Enter password: ")
-
 
         # Ask the user to choose a role: admin or customer
         while True:
@@ -81,6 +65,7 @@ class User:
         print(f"User '{self.username}' registered successfully!")
 
         conn.close()
+
 
 
     def login_user(self):

@@ -193,87 +193,6 @@ class Booking:
 
 
 
-    #
-    # @staticmethod
-    # def process_admin_action(cursor, choice):
-    #     """
-    #     Process the options chosen by the admin for the booking
-    #     """
-    #     booking_id = input("Enter the Booking ID to process: ")
-    #     cursor.execute("SELECT * FROM bookings WHERE booking_id = ?", (booking_id,))
-    #     selected_booking = cursor.fetchone()
-    #
-    #     # if booking not found in database
-    #     if not selected_booking:
-    #         print(f"No booking found with ID {booking_id}. Please try again.")
-    #         return
-    #
-    #     # if the booking number is already approved or rejected
-    #     if selected_booking[6] in ["approved", "rejected"] and choice != "3":
-    #         print(f"Booking {booking_id} is already {selected_booking[6]} and cannot be modified.")
-    #         return
-    #
-    #     # if booking number is cancelled it cannot be approved
-    #     if selected_booking[6] == "canceled" and choice == "1":
-    #         print(f"Booking {booking_id} is canceled.You cannot be approved. Either reject or cancel it")
-    #         return
-    #
-    #     # update booking status in the database
-    #     if choice == "1":
-    #         cursor.execute("UPDATE bookings SET status = 'approved' WHERE booking_id = ?", (booking_id,))
-    #         print(f"Booking {booking_id} has been approved.")
-    #     elif choice == "2":
-    #         cursor.execute("UPDATE bookings SET status = 'rejected' WHERE booking_id = ?", (booking_id,))
-    #         cursor.execute("UPDATE cars SET available_now = 1 WHERE id = ?", (selected_booking[1],))
-    #         print(f"Booking {booking_id} has been rejected.")
-    #     elif choice == "3":
-    #         cursor.execute("DELETE FROM bookings WHERE booking_id = ?", (booking_id,))
-    #         cursor.execute("UPDATE cars SET available_now = 1 WHERE id = ?", (selected_booking[1],))
-    #         print(f"Booking {booking_id} has been deleted.")
-    #
-    # @staticmethod
-    # def manage_bookings():
-    #     """
-    #     Ask admin what to do with the customer booking
-    #     """
-    #     print("\nManage Bookings (Admin):")
-    #     conn = sqlite3.connect(DB_FILE)
-    #     cursor = conn.cursor()
-    #
-    #     while True:
-    #         cursor.execute("SELECT * FROM bookings")
-    #         bookings = cursor.fetchall()
-    #
-    #         if bookings:
-    #             headers = ["Booking ID", "Car ID", "User ID", "Start Date", "End Date", "Cost", "Status"]
-    #             table = [
-    #                 [booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6]]
-    #                 for booking in bookings
-    #             ]
-    #             print(tabulate(table, headers=headers, tablefmt="grid"))
-    #
-    #             print("\nOptions:")
-    #             print("1. Approve a booking")
-    #             print("2. Reject a booking")
-    #             print("3. Delete a booking")
-    #             print("4. Exit menu")
-    #
-    #             choice = input("Enter your choice (1-4): ")
-    #
-    #             if choice == "4":
-    #                 print("Exiting the Manage Bookings menu.")
-    #                 break
-    #
-    #             elif choice in ["1", "2", "3"]:
-    #                 Booking.process_admin_action(cursor, choice)
-    #             else:
-    #                 print("Invalid choice! Please select a valid option (1-4).")
-    #
-    #         else:
-    #             print("No bookings to manage.")
-    #             break
-    #
-    #     conn.close()
 
     @staticmethod
     def process_admin_action(cursor, choice):
@@ -356,7 +275,7 @@ class Booking:
                     ]
                     print(tabulate(table, headers=headers, tablefmt="grid"))
 
-                    if choice in ["1", "2", "3"]:  # Process action only if it's not just viewing
+                    if choice in ["1", "2", "3"]:  # Process action if it's not just viewing
                         Booking.process_admin_action(cursor, choice)
 
                 else:
