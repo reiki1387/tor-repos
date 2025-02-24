@@ -3,7 +3,6 @@ document.getElementById('alertBtn').addEventListener('click', function() {
 });
 
 
-
 document.getElementById('goBackBtn').addEventListener('click', function() {
     alert('go back btn Clicked!')
     window.location.href = '/';

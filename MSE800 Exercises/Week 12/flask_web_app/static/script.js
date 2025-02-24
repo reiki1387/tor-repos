@@ -11,7 +11,7 @@ document.getElementById('alertBtn3').addEventListener('click', function() {
 });
 
 document.getElementById('goToPage2Btn').addEventListener('click', function() {
-    window.location.href = '/page_2';
+    window.location.href = '/page_2/FRED/6';
 });
 
 document.getElementById('goBackBtn').addEventListener('click', function() {
