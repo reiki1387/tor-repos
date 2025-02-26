@@ -1,4 +1,4 @@
+This is a repository Masters of Software Engineering  AND
+A repository for all the exercises I've done while learning programming and any tech related subjects.
 
-This is a repository for all the exercises I've done while learning programming and any tech related subjects.
-AND
-OR
+
