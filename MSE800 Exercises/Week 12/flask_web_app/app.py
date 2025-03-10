@@ -13,4 +13,5 @@ def second_page(name, number):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)  #debugger mode:ON , debugger PIN is visible, Debugger PIN: 899-703-187
+    app.run()   #debugger mode:OFF
