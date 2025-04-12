@@ -116,38 +116,41 @@
 
 #Exercise: Cats Everywhere (02 April 2025)
 #Given the below class:
-class Cat:
-    species = 'mammal'
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+# class Cat:
+#     species = 'mammal'
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
 
-    def oldest_cat(self, cats):
-        cat_dict = {}
-        for cat in cats:
-            cat_dict[cat.name] = cat.age
+#     def oldest_cat(self, cats):
+#         cat_dict = {}
+#         for cat in cats:
+#             cat_dict[cat.name] = cat.age
 
-        print (cat_dict)
+#         print (cat_dict)
 
-        oldest_cat_age = cat_dict[cat.name] #last pair
+#         oldest_cat_age = cat_dict[cat.name] #last pair
         
-        for key, value in cat_dict.items():
-            if oldest_cat_age < value:
-                oldest_cat_age = value
-                oldest_cat_name = key
-        return oldest_cat_name , oldest_cat_age
+#         for key, value in cat_dict.items():
+#             if oldest_cat_age < value:
+#                 oldest_cat_age = value
+#                 oldest_cat_name = key
+#         return oldest_cat_name , oldest_cat_age
 
-# 1 Instantiate the Cat object with 3 cats
-cat1 = Cat("kathy", 8)
-cat2 = Cat("Molly", 9)
-cat3 = Cat("Jenny", 3)
+# # 1 Instantiate the Cat object with 3 cats
+# cat1 = Cat("kathy", 8)
+# cat2 = Cat("Molly", 9)
+# cat3 = Cat("Jenny", 3)
 
-# 2 Create a function that finds the oldest cat
-cat_list =[cat1, cat2, cat3]
-name , age = cat1.oldest_cat(cat_list)
+# # 2 Create a function that finds the oldest cat
+# cat_list =[cat1, cat2, cat3]
+# name , age = cat1.oldest_cat(cat_list)
 
-# 3 Print out: "The oldest cat is x years old.". x will be the oldest cat age by using the function in #2
-print(f"The oldest cat is {age} years old")
+# # 3 Print out: "The oldest cat is x years old.". x will be the oldest cat age by using the function in #2
+# print(f"The oldest cat is {age} years old")
 
-# 4 What is the name of the oldest cat
-print (f"The name of the oldest cat is {name}")
+# # 4 What is the name of the oldest cat
+# print (f"The name of the oldest cat is {name}")
+
+
+print (not "hello".islower())
