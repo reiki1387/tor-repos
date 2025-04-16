@@ -1,0 +1,5 @@
+{
+  "api_key": "12345",
+  "base_url": "https://api.weather.com",
+  "units": "metric"
+}
