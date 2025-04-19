@@ -207,114 +207,234 @@
 #     unittest.main(verbosity=2)
 
 
-import unittest
+# import unittest
 
-# The class we want to test
-class BankAccount:
-    def __init__(self, account_holder, initial_balance=0):
-        self.account_holder = account_holder
-        self.balance = initial_balance
+# # The class we want to test
+# class BankAccount:
+#     def __init__(self, account_holder, initial_balance=0):
+#         self.account_holder = account_holder
+#         self.balance = initial_balance
     
-    def deposit(self, amount):
-        if amount <= 0:
-            raise ValueError("Deposit amount must be positive")
-        self.balance += amount
-        return self.balance
+#     def deposit(self, amount):
+#         if amount <= 0:
+#             raise ValueError("Deposit amount must be positive")
+#         self.balance += amount
+#         return self.balance
     
-    def withdraw(self, amount):
-        if amount <= 0:
-            raise ValueError("Withdrawal amount must be positive")
-        if amount > self.balance:
-            raise ValueError("Insufficient funds")
-        self.balance -= amount
-        return self.balance
+#     def withdraw(self, amount):
+#         if amount <= 0:
+#             raise ValueError("Withdrawal amount must be positive")
+#         if amount > self.balance:
+#             raise ValueError("Insufficient funds")
+#         self.balance -= amount
+#         return self.balance
     
-    def get_balance(self):
-        return self.balance
+#     def get_balance(self):
+#         return self.balance
     
-    def transfer(self, amount, target_account):
-        self.withdraw(amount)
-        target_account.deposit(amount)
-        return True
-
-
-# Our test class
-class TestBankAccount(unittest.TestCase):
-    # Class-level setup/teardown (run once for the whole class)
-    @classmethod
-    def setUpClass(cls):
-        print("\nSetting up test class...")
-        cls.default_holder = "John Doe"
-    
-    @classmethod
-    def tearDownClass(cls):
-        print("\nTearing down test class...")
-    
-    # Instance-level setup/teardown (run before/after each test method)
-    def setUp(self):
-        print("\nSetting up for a test...")
-        self.account = BankAccount(self.default_holder, 100)
-        self.target_account = BankAccount("Jane Smith", 50)
-    
-    def tearDown(self):
-        print("Cleaning up after test...")
-        del self.account
-        del self.target_account
-    
-    # Test methods
-    def test_initial_balance(self):
-        print("Running test_initial_balance...")
-        self.assertEqual(self.account.get_balance(), 100)
-    
-    def test_deposit_positive_amount(self):
-        print("Running test_deposit_positive_amount...")
-        new_balance = self.account.deposit(50)
-        self.assertEqual(new_balance, 150)
-        self.assertEqual(self.account.get_balance(), 150)
-    
-    def test_withdraw_positive_amount(self):
-        print("Running test_withdraw_positive_amount...")
-        new_balance = self.account.withdraw(30)
-        self.assertEqual(new_balance, 70)
-        self.assertEqual(self.account.get_balance(), 70)
-    
-    def test_deposit_negative_amount_raises_error(self):
-        print("Running test_deposit_negative_amount_raises_error...")
-        with self.assertRaises(ValueError):
-            self.account.deposit(-10)
-    
-    def test_withdraw_negative_amount_raises_error(self):
-        print("Running test_withdraw_negative_amount_raises_error...")
-        with self.assertRaises(ValueError):
-            self.account.withdraw(-10)
-    
-    def test_withdraw_more_than_balance_raises_error(self):
-        print("Running test_withdraw_more_than_balance_raises_error...")
-        with self.assertRaises(ValueError):
-            self.account.withdraw(200)
-    
-    def test_transfer_successful(self):
-        print("Running test_transfer_successful...")
-        result = self.account.transfer(30, self.target_account)
-        self.assertTrue(result)
-        self.assertEqual(self.account.get_balance(), 70)
-        self.assertEqual(self.target_account.get_balance(), 80)
-    
-    def test_transfer_insufficient_funds(self):
-        print("Running test_transfer_insufficient_funds...")
-        with self.assertRaises(ValueError):
-            self.account.transfer(200, self.target_account)
-    
-    @unittest.skip("Skipping this test for demonstration")
-    def test_skip_example(self):
-        self.fail("This test should be skipped")
-    
-    # This test will fail on purpose to show failure output
-    def test_failure_example(self):
-        print("Running test_failure_example...")
-        self.assertEqual(self.account.deposit(10), 110)
-        self.assertEqual(self.account.deposit(20), 120)  # This will fail (should be 130)
+#     def transfer(self, amount, target_account):
+#         self.withdraw(amount)
+#         target_account.deposit(amount)
+#         return True
 
 
-if __name__ == '__main__':
-    unittest.main(verbosity=2)  # verbosity=2 shows more detailed output
+# # Our test class
+# class TestBankAccount(unittest.TestCase):
+#     # Class-level setup/teardown (run once for the whole class)
+#     @classmethod
+#     def setUpClass(cls):
+#         print("\nSetting up test class...")
+#         cls.default_holder = "John Doe"
+    
+#     @classmethod
+#     def tearDownClass(cls):
+#         print("\nTearing down test class...")
+    
+#     # Instance-level setup/teardown (run before/after each test method)
+#     def setUp(self):
+#         print("\nSetting up for a test...")
+#         self.account = BankAccount(self.default_holder, 100)
+#         self.target_account = BankAccount("Jane Smith", 50)
+    
+#     def tearDown(self):
+#         print("Cleaning up after test...")
+#         del self.account
+#         del self.target_account
+    
+#     # Test methods
+#     def test_initial_balance(self):
+#         print("Running test_initial_balance...")
+#         self.assertEqual(self.account.get_balance(), 100)
+    
+#     def test_deposit_positive_amount(self):
+#         print("Running test_deposit_positive_amount...")
+#         new_balance = self.account.deposit(50)
+#         self.assertEqual(new_balance, 150)
+#         self.assertEqual(self.account.get_balance(), 150)
+    
+#     def test_withdraw_positive_amount(self):
+#         print("Running test_withdraw_positive_amount...")
+#         new_balance = self.account.withdraw(30)
+#         self.assertEqual(new_balance, 70)
+#         self.assertEqual(self.account.get_balance(), 70)
+    
+#     def test_deposit_negative_amount_raises_error(self):
+#         print("Running test_deposit_negative_amount_raises_error...")
+#         with self.assertRaises(ValueError):
+#             self.account.deposit(-10)
+    
+#     def test_withdraw_negative_amount_raises_error(self):
+#         print("Running test_withdraw_negative_amount_raises_error...")
+#         with self.assertRaises(ValueError):
+#             self.account.withdraw(-10)
+    
+#     def test_withdraw_more_than_balance_raises_error(self):
+#         print("Running test_withdraw_more_than_balance_raises_error...")
+#         with self.assertRaises(ValueError):
+#             self.account.withdraw(200)
+    
+#     def test_transfer_successful(self):
+#         print("Running test_transfer_successful...")
+#         result = self.account.transfer(30, self.target_account)
+#         self.assertTrue(result)
+#         self.assertEqual(self.account.get_balance(), 70)
+#         self.assertEqual(self.target_account.get_balance(), 80)
+    
+#     def test_transfer_insufficient_funds(self):
+#         print("Running test_transfer_insufficient_funds...")
+#         with self.assertRaises(ValueError):
+#             self.account.transfer(200, self.target_account)
+    
+#     @unittest.skip("Skipping this test for demonstration")
+#     def test_skip_example(self):
+#         self.fail("This test should be skipped")
+    
+#     # This test will fail on purpose to show failure output
+#     def test_failure_example(self):
+#         print("Running test_failure_example...")
+#         self.assertEqual(self.account.deposit(10), 110)
+#         self.assertEqual(self.account.deposit(20), 120)  # This will fail (should be 130)
+
+
+# if __name__ == '__main__':
+#     unittest.main(verbosity=2)  # verbosity=2 shows more detailed output
+
+
+# test_bank_account.py
+# import pytest
+
+# class BankAccount:
+#     def __init__(self, account_holder, initial_balance=0):
+#         self.account_holder = account_holder
+#         self.balance = initial_balance
+    
+#     def deposit(self, amount):
+#         if amount <= 0:
+#             raise ValueError("Deposit amount must be positive")
+#         self.balance += amount
+#         return self.balance
+    
+#     def withdraw(self, amount):
+#         if amount <= 0:
+#             raise ValueError("Withdrawal amount must be positive")
+#         if amount > self.balance:
+#             raise ValueError("Insufficient funds")
+#         self.balance -= amount
+#         return self.balance
+    
+#     def get_balance(self):
+#         return self.balance
+    
+#     def transfer(self, amount, target_account):
+#         self.withdraw(amount)
+#         target_account.deposit(amount)
+#         return True
+
+# # Fixtures (replace setUp/tearDown)
+# @pytest.fixture
+# def default_account():
+#     """Fresh account for each test with $100 balance"""
+#     account = BankAccount("John Doe", 100)
+#     yield account  # This is where the test runs
+#     # Optional teardown (pytest handles cleanup automatically)
+
+# @pytest.fixture
+# def target_account():
+#     return BankAccount("Jane Smith", 50)
+
+# # Tests (no need for TestCase class)
+# def test_initial_balance(default_account):
+#     assert default_account.get_balance() == 100
+
+# def test_deposit_positive_amount(default_account):
+#     new_balance = default_account.deposit(50)
+#     assert new_balance == 150
+#     assert default_account.get_balance() == 150
+
+# def test_withdraw_positive_amount(default_account):
+#     new_balance = default_account.withdraw(30)
+#     assert new_balance == 70
+#     assert default_account.get_balance() == 70
+
+# def test_deposit_negative_amount_raises_error(default_account):
+#     with pytest.raises(ValueError, match="Deposit amount must be positive"):
+#         default_account.deposit(-10)
+
+# def test_transfer_successful(default_account, target_account):
+#     result = default_account.transfer(30, target_account)
+#     assert result is True
+#     assert default_account.get_balance() == 70
+#     assert target_account.get_balance() == 80
+
+# # Parametrized test for multiple cases
+# @pytest.mark.parametrize("amount,expected_balance", [
+#     (10, 90),
+#     (50, 50),
+#     (100, 0),  # Edge case: emptying account
+# ])
+# def test_withdraw_various_amounts(default_account, amount, expected_balance):
+#     default_account.withdraw(amount)
+#     assert default_account.get_balance() == expected_balance
+
+
+
+#PYTEST FIXTURE SCOPE MAPPING
+import pytest
+
+@pytest.fixture(scope="function")
+def func_scope():
+    print("\n[Fixture] function scope")
+    return "function-scope"
+
+@pytest.fixture(scope="class")
+def class_scope():
+    print("\n[Fixture] class scope")
+    return "class-scope"
+
+@pytest.fixture(scope="module")
+def module_scope():
+    print("\n[Fixture] module scope")
+    return "module-scope"
+
+@pytest.fixture(scope="session")
+def session_scope():
+    print("\n[Fixture] session scope")
+    return "session-scope"
+
+
+class TestGroupA:
+
+    def test_a1(self, func_scope, class_scope, module_scope, session_scope):
+        print("Running test_a1")
+
+    def test_a2(self, func_scope, class_scope, module_scope, session_scope):
+        print("Running test_a2")
+
+class TestGroupB:
+
+    def test_b1(self, func_scope, class_scope, module_scope, session_scope):
+        print("Running test_b1")
+
+#use pytest -s intead of this
+# if __name__ == '__main__':
+#     pytest.main()

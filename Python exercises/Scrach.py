@@ -2418,176 +2418,42 @@
 # pdb.set_trace()
 # print(divide(10, 0))
 
+from collections import Counter,defaultdict,OrderedDict
 
-# import unittest
+#Counter counts the number of occurence
 
-# def add(a, b):
-#     return a + b
+# name = "Alfredo Torrena"
+# count= Counter(name)
+# print (type(count)) # <class 'collections.Counter'>
+# print(count)
 
-# class TestAddFunction(unittest.TestCase):
-#     def test_add_integers(self):
-#         self.assertEqual(add(1, 2), 3)
-    
-#     def test_add_floats(self):
-#         self.assertAlmostEqual(add(1.1, 2.2), 3.3, places=1)
-    
-#     def test_add_strings(self):
-#         self.assertEqual(add('hello', ' world'), 'hello world')
+# dictionary = defaultdict(lambda: "Not present", {'a': 1, 'b': 2})
+# print(dictionary)
+# print(dictionary['a'])
+# print(dictionary['c'])
 
-# if __name__ == '__main__':
-#     unittest.main()
+from collections import OrderedDict
 
-# import pytest
+print("dict")
+d = OrderedDict()
+d['a'] = 1
+d['b'] = 2
+d['c'] = 3
+d['d'] = 4
+print(d)
+for key, value in d.items():
+    print(key, value, end= " , ")
 
-# # test_sample.py
-# def add(a, b):
-#     return a + b
-
-# def test_add_integers():
-#     assert add(1, 2) == 3
-
-# def test_add_strings():
-#     assert add('hello', ' world') == 'hello world'
-
-# if __name__ == '__main__':
-#     pytest.main()
-
-
-# import unittest
-
-# # The class we want to test
-# class BankAccount:
-#     def __init__(self, account_holder, initial_balance=0):
-#         self.account_holder = account_holder
-#         self.balance = initial_balance
-    
-#     def deposit(self, amount):
-#         if amount <= 0:
-#             raise ValueError("Deposit amount must be positive")
-#         self.balance += amount
-#         return self.balance
-    
-#     def withdraw(self, amount):
-#         if amount <= 0:
-#             raise ValueError("Withdrawal amount must be positive")
-#         if amount > self.balance:
-#             raise ValueError("Insufficient funds")
-#         self.balance -= amount
-#         return self.balance
-    
-#     def get_balance(self):
-#         return self.balance
-    
-#     def transfer(self, amount, target_account):
-#         self.withdraw(amount)
-#         target_account.deposit(amount)
-#         return True
+print( "\nordered dict")
+od = OrderedDict()
+od['d'] = 4
+od['b'] = 2
+od['a'] = 1
+od['c'] = 3
+print(od)
+for key, value in od.items():
+    print(key, value, end= " , ")
 
 
-# # Our test class
-# class TestBankAccount(unittest.TestCase):
-#     # Class-level setup/teardown (run once for the whole class)
-#     @classmethod
-#     def setUpClass(cls):
-#         print("\nSetting up test class...")
-#         cls.default_holder = "John Doe"
-    
-#     @classmethod
-#     def tearDownClass(cls):
-#         print("\nTearing down test class...")
-    
-#     # Instance-level setup/teardown (run before/after each test method)
-#     def setUp(self):
-#         print("\nSetting up for a test...")
-#         self.account = BankAccount(self.default_holder, 100)
-#         self.target_account = BankAccount("Jane Smith", 50)
-    
-#     def tearDown(self):
-#         print("Cleaning up after test...")
-#         del self.account
-#         del self.target_account
-    
-#     # Test methods
-#     def test_initial_balance(self):
-#         print("Running test_initial_balance...")
-#         self.assertEqual(self.account.get_balance(), 100)
-    
-#     def test_deposit_positive_amount(self):
-#         print("Running test_deposit_positive_amount...")
-#         new_balance = self.account.deposit(50)
-#         self.assertEqual(new_balance, 150)
-#         self.assertEqual(self.account.get_balance(), 150)
-    
-#     def test_withdraw_positive_amount(self):
-#         print("Running test_withdraw_positive_amount...")
-#         new_balance = self.account.withdraw(30)
-#         self.assertEqual(new_balance, 70)
-#         self.assertEqual(self.account.get_balance(), 70)
-    
-#     def test_deposit_negative_amount_raises_error(self):
-#         print("Running test_deposit_negative_amount_raises_error...")
-#         with self.assertRaises(ValueError):
-#             self.account.deposit(-10)
-    
-#     def test_withdraw_negative_amount_raises_error(self):
-#         print("Running test_withdraw_negative_amount_raises_error...")
-#         with self.assertRaises(ValueError):
-#             self.account.withdraw(-10)
-    
-#     def test_withdraw_more_than_balance_raises_error(self):
-#         print("Running test_withdraw_more_than_balance_raises_error...")
-#         with self.assertRaises(ValueError):
-#             self.account.withdraw(200)
-    
-#     def test_transfer_successful(self):
-#         print("Running test_transfer_successful...")
-#         result = self.account.transfer(30, self.target_account)
-#         self.assertTrue(result)
-#         self.assertEqual(self.account.get_balance(), 70)
-#         self.assertEqual(self.target_account.get_balance(), 80)
-    
-#     def test_transfer_insufficient_funds(self):
-#         print("Running test_transfer_insufficient_funds...")
-#         with self.assertRaises(ValueError):
-#             self.account.transfer(200, self.target_account)
-    
-#     @unittest.skip("Skipping this test for demonstration")
-#     def test_skip_example(self):
-#         self.fail("This test should be skipped")
-    
-#     # This test will fail on purpose to show failure output
-#     def test_failure_example(self):
-#         print("Running test_failure_example...")
-#         self.assertEqual(self.account.deposit(10), 110)
-#         self.assertEqual(self.account.deposit(20), 120)  # This will fail (should be 130)
 
-
-# if __name__ == '__main__':
-#     unittest.main(verbosity=2)  # verbosity=2 shows more detailed output
-
-import unittest
-
-class TestCookieBaking(unittest.TestCase):
-    def setUp(self):
-        print("\n🧑🍳 Preparing kitchen...")
-        self.oven_temp = 350
-        self.bowl = ["flour", "sugar", "eggs"]
-        self.cookie_sheet = []
-    
-    def tearDown(self):
-        print("🧼 Cleaning up...")
-        self.bowl = []
-        self.cookie_sheet = []
-
-    def test_chocolate_chip(self):
-        print("Testing chocolate chip cookies...")
-        self.cookie_sheet.append("chocolate chip cookie")
-        self.assertEqual(len(self.cookie_sheet), 2)  #this will show error
-    
-    def test_oatmeal_raisin(self):
-        print("Testing oatmeal raisin cookies...")
-        self.bowl.append("oats")
-        self.assertIn("oats", self.bowl)
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
+print(d == od) # output = True
