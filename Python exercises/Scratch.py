@@ -2418,7 +2418,7 @@
 # pdb.set_trace()
 # print(divide(10, 0))
 
-from collections import Counter,defaultdict,OrderedDict
+# from collections import Counter,defaultdict,OrderedDict
 
 #Counter counts the number of occurence
 
@@ -2432,28 +2432,39 @@ from collections import Counter,defaultdict,OrderedDict
 # print(dictionary['a'])
 # print(dictionary['c'])
 
-from collections import OrderedDict
+# from collections import OrderedDict
 
-print("dict")
-d = OrderedDict()
-d['a'] = 1
-d['b'] = 2
-d['c'] = 3
-d['d'] = 4
-print(d)
-for key, value in d.items():
-    print(key, value, end= " , ")
+# print("dict")
+# #d = OrderedDict()
+# d ={}
+# d['a'] = 1
+# d['b'] = 2
+# d['c'] = 3
+# d['d'] = 4
+# print(d)
+# for key, value in d.items():
+#     print(key, value, end= " , ")
 
-print( "\nordered dict")
-od = OrderedDict()
-od['d'] = 4
-od['b'] = 2
-od['a'] = 1
-od['c'] = 3
-print(od)
-for key, value in od.items():
-    print(key, value, end= " , ")
+# print( "\nordered dict")
+# od = OrderedDict()
+# od['d'] = 4
+# od['b'] = 2
+# od['a'] = 1
+# od['c'] = 3
+# print(od)
+# for key, value in od.items():
+#     print(key, value, end= " , ")
 
+# print(d == od) # output = false
 
+import sys 
+# for line in sys.stdin: 
+# 	if 'q' == line.rstrip(): 
+# 		break
+# 	print(f'Input : {line}') 
 
-print(d == od) # output = True
+# print("Exit") 
+print(sys.version_info)
+print(sys.platform)
+print(sys.path)
+
