@@ -2457,14 +2457,680 @@
 
 # print(d == od) # output = false
 
-import sys 
+# import sys 
 # for line in sys.stdin: 
 # 	if 'q' == line.rstrip(): 
 # 		break
 # 	print(f'Input : {line}') 
 
 # print("Exit") 
-print(sys.version_info)
-print(sys.platform)
-print(sys.path)
 
+#outputs python system version
+# print(sys.version_info) #sys.version_info(major=3, minor=13, micro=0, releaselevel='final', serial=0)
+
+# #outputs operating system platform
+# print(sys.platform) #output: win32
+# print(sys.path)
+
+import re
+string = "The cat is walking with another cat"
+
+# pattern = re.compile("cat")
+# found = pattern.search(string)
+# print(found) # returns object : <re.Match object; span=(4, 7), match='cat'>
+# found2 = pattern.findall(string)
+# print (found2) #returns : ['cat', 'cat']
+# found3 = pattern.fullmatch(string)
+# print(found3) #returns: None
+
+# # fullmatch() only returns if it is the exact full match
+# pattern2 = re.compile("The cat is walking with another cat")
+# found4 = pattern2.fullmatch(string)
+# print(found4) # <re.Match object; span=(0, 35), match='The cat is walking with another cat'>
+
+
+
+# print( "cat" in string) #output = True
+
+# found = re.search("cat", string) #<re.Match object; span=(4, 7), match='cat'>
+# print (found.span()) # output: (4,7)
+# print (found.start()) # output: 4
+# print (found.end()) # output: 7
+# print (found.group()) #output: 'cat' 
+
+# import re
+
+# text = "Python is fun, python is easy"
+# pattern = "python"
+
+# # Case-insensitive search for "python"
+# pattern = re.compile(r"python", re.IGNORECASE)
+# result = pattern.search("Python is easy")
+# print(result)
+
+# # Multiline search
+# pattern = re.compile(r"^line", re.MULTILINE)
+# result = pattern.findall("line1\nline2")
+# print(result)
+
+# # Combining flags
+# pattern = re.compile(r"start.*end", re.DOTALL | re.IGNORECASE)
+# result = pattern.search("Start\nMiddle\nEND")
+# print(result)
+
+
+
+# find_all =re.findall("cat", string)
+# print(find_all) # ['cat', 'cat']
+
+# string= "The rain is pouring"
+# print (re.match("The", string))  # Matches, output <re.Match object; span=(0, 3), match='The'>
+# print (re.match("rain", string))  # Doesn't match (not at start), output: None
+
+# new_text = re.sub("cat", "dog", string)
+# print(new_text)  # Output: "TThe dog is walking with another dog"
+
+# import re
+
+# text = "Python is fun, python is easy"
+# pattern = "python"
+
+# # Case-sensitive search (no flags)
+# match = re.search(pattern, text)
+# print(match)  # Output: <re.Match object; span=(15, 21), match='python'>
+
+# # Case-insensitive search using re.IGNORECASE
+# match_ignorecase = re.search(pattern, text, re.IGNORECASE)
+# print(match_ignorecase)  # Output: <re.Match object; span=(0, 6), match='Python'>
+
+# import re
+
+# # Combining flags demonstration with proper MULTILINE usage
+# text_multiline = "This is line one\nline two is here"  # A string with two lines
+
+# # Pattern to match 'line' at the START of EACH line
+# pattern_multiline = "^line"  
+
+# # --- Test 1: Without re.MULTILINE ---
+# # By default, ^ only matches at the start of the ENTIRE string
+# match_true_fail = re.search(pattern_multiline, text_multiline)
+# print(match_true_fail)  # Output: None (because 'line' isn't at start of entire string)
+
+# # --- Test 2: With re.MULTILINE ---
+# # With the flag, ^ matches at START of EACH LINE
+# match_multiline_success = re.search(pattern_multiline, text_multiline, re.MULTILINE)
+# print(match_multiline_success)  # Output: <re.Match object; span=(17, 21), match='line'>
+
+
+# --- Bonus: Finding ALL matches with findall ---
+# all_matches = re.findall(pattern_multiline, text_multiline, re.MULTILINE)
+# print("\nAll matches using findall():")
+# print(all_matches)  # Output: ['line', 'line'] (both lines start with 'line')
+
+
+# import re
+
+# text = "Python is fun, python is easy"
+# multiline = "This is line 1\nThis is line 2"
+
+# # Case-insensitive search for "python"
+# pattern = re.compile(r"python", re.IGNORECASE)
+# result = pattern.search(text)
+# print(result) #<re.Match object; span=(0, 6), match='Python'>
+
+# # Multiline search
+# pattern = re.compile(r"line", re.MULTILINE)
+# result = pattern.findall(multiline)
+# print(result) # ['line', 'line']
+
+# # Combining flags
+# pattern = re.compile(r"start.*end", re.DOTALL | re.IGNORECASE)
+# result = pattern.search("Start\nMiddle\nEND")
+# print(result) #<re.Match object; span=(0, 16), match='Start\nMiddle\nEND'>
+
+# text = "apple\nbanana\ncherry"
+
+# # Without MULTILINE (matches only at the absolute end)
+# print(re.findall(r"y$", text))          # Output: ['y'] (matches "y" in "cherry")
+# print(re.findall(r"a$", text))          # Output: [] (no match)
+
+# # With MULTILINE (matches end of each line)
+# print(re.findall(r"[e,a]$", text, re.M))    # Output: ['e', 'a'] (matches "e" in "apple" and "a" in "banana")
+
+# text = "apple\nbanana"
+
+# print(re.findall(r"\Aa", text))         # Output: ['a'] (matches "a" in "apple")
+# print(re.findall(r"\Ab", text, re.M))         # Output: [] (no match, even with MULTILINE)
+
+# text = "apple\nbanana"
+
+# print(re.findall(r"a\Z", text))         # Output: ['a'] (matches last "a" in "banana")
+# print(re.findall(r"e\Z", text, re.M))         # Output: [] (no match, even with MULTILINE)
+
+# text = "cat category concatenate"
+
+# # Match whole word "cat"
+# print(re.findall(r"\Bcat\B", text))     # Output: ['cat'](Fully embeded from "cancatenate") 
+
+# # Match words starting with "cat"
+# print(re.findall(r"\Bcat\w*", text))    # Output: ['catenate'] (from concatenate)
+
+# #if you take out the last \B
+# print(re.findall(r"\Bcat", text))     # Output: ['cat'] (from "concatenate")
+
+# import re
+
+# pattern = r'^[A-Za-z][A-Za-z0-9_-]{1,14}[A-Za-z0-9]$'  
+# # Breakdown:
+# # ^[A-Za-z]       → Must start with a letter
+# # [A-Za-z0-9_-]{1,14} → Middle can be letters, numbers, _, or - (1-14 chars)
+# # [A-Za-z0-9]$     → Must end with a letter or number
+# # Total length: 3-16 chars (1 + 1-14 + 1)
+
+# usernames = ["User_1", "a-b-c", "x_123", "1invalid", "toolongusername123", "ok"]
+# for name in usernames:
+#     if re.fullmatch(pattern, name):  # fullmatch() ensures entire string matches
+#         print(f"✅ Valid: {name}")
+#     else:
+#         print(f"❌ Invalid: {name}")
+
+# pin_pattern = r'^\d{4}$'  # Must be exactly 4 digits
+# pins = ["1234", "456", "12345", "abcd"]
+# for pin in pins:
+#     if re.fullmatch(pin_pattern, pin):
+#         print(f"✅ Valid PIN: {pin}")
+#     else:
+#         print(f"❌ Invalid PIN: {pin}")
+
+# text = """first line
+# second line
+# third line starts here"""
+# # Extract words at the start of each line (using re.MULTILINE)
+# matches = re.findall(r'^\w+', text, re.MULTILINE)
+# print(matches)  # Output: ['first', 'second', 'third']
+
+# text = "cat in the cathedral category"
+# matches = re.findall(r'\bcat\b', text)  # Only matches "cat" as a whole word
+# print(matches)  # Output: ['cat']
+
+# emails = ["user@example.com", "invalid@test", "another@domain.org"]
+# valid_emails = [email for email in emails if re.search(r'\.com$|\.org$', email)]
+# print(valid_emails)  # Output: ['user@example.com', 'another@domain.org']
+
+# string = "the boy\\girl is singing"
+# # To match a literal backslash:
+# print(re.search(r'\\', string))  # <re.Match object; span=(7, 8), match='\\'>
+
+
+# import re
+
+# # * (0 or more)
+# print(re.findall(r"a*b", "the bad guy is absent"))  # ['b', 'ab']
+
+# + (1 or more)
+# print(re.findall(r"a+b", "absolutely busy antibiotics aabomination"))  # ['ab', 'aab']
+
+# # ? (0 or 1)
+# print(re.findall(r"a?b", "absolutely busy aabomination"))  # ['ab', 'b', 'ab']
+
+# # {n} (exact count)
+# print(re.findall(r"a{2}b", "absolutely busy aabomination"))  # ['aab']
+
+# # Match "color" or "colour"
+# print(re.findall(r"colou?r", "color colour"))  # ['color', 'colour']
+
+# import re
+
+# text = "abcXYZ123!@#"
+
+# # .* - Greedy match (everything until last possible match)
+# print (re.findall(r'a.*#', text))  # ['abcXYZ123!@#'] ← this means capture c and 0 or more characters before '#'
+# print (re.findall(r'a*#', text))  # without dot ['#'], this means capture '#' with or without 'a' before it
+
+# # .+ - Greedy match (at least one character)
+# print (re.findall(r'c.+!', text))   # ['cXYZ123!'] ← this means capture c and 1 or more characters before '!'
+# print (re.findall(r'c+!', text))  # output: [], this means capture '!' that has 1 or more 'c' before it
+
+# # .{2,4} - Greedy range
+# print (re.findall(r'b.{2,4}', text)) # ['bcXYZ'] ← this means capture 'b'and 2-4 char after it
+# print (re.findall(r'b.{2,4}#', text)) # output:[] ← this means capture b & # ONLY if it has 2-4 chars in-between
+# print (re.findall(r'b{2,4}3', text))  # output: [], this means capture '3' that has 2-4 'b' before it 
+
+#Dot with Lazy quantifiers
+# text = "abcXYZ123!@#"
+
+# # .*? - Lazy match
+# print (re.findall(r'a.*?#', text))  # ['abcXYZ123!@#'] ← but behaves differently in groups
+
+# # .+? - Lazy match (at least one, but minimal)
+# print (re.findall(r'X.+?!', text))  # ['XY!'] ← stops at first !
+
+# # .{2,4}? - Lazy range
+# print (re.findall(r'b.{2,4}?2', text)) # ['bcX2'] ← takes minimum 2 chars
+
+
+# text = "STARTabcENDSTARTdefEND"
+
+# # Lazy extraction between START/END
+# print(re.findall(r'START(.*?)END', text))  # ['abc', 'def']
+
+
+# import re
+
+# text = "anccccbcac ancb anbc anmbc ab b"
+
+# # Greedy *
+# greedy_star = re.findall(r"anc?b", text)
+# print("Greedy * :", greedy_star) #output: Greedy * : ['ancb', 'anb']
+
+# # Lazy *?
+# lazy_star = re.findall(r"anc??b", text)
+# print("Lazy *? :", lazy_star)
+
+
+# import re
+
+# # Match phone numbers
+# text = "Call me at 123-456-7890 or 555-1234"
+# print(re.findall(r"\d{3}-\d{3}-\d{4}", text))  # Output: ['123-456-7890']
+
+# # Extract all digits
+# print(re.findall(r"\d+", text))  # Output: ['123', '456', '7890', '555', '1234']
+
+# print(re.findall(r"\d+", "A1B2C3"))  # Output: ['1', '2', '3']
+
+# import re
+# #matches non-digit sequences
+# text = "Room 101: $200 ##"
+# print(re.findall(r"\D", text))  # ['R', 'o', 'o', 'm', ' ', ':', ' ', '$', ' ', '#', '#']
+# print(re.findall(r"\D+", text)) # ['Room ', ': $', ' ##']
+
+# text = "Résumé 2023 – ٣٤٥"
+# print(re.findall(r"\w+", text))  # Matches: ['Résumé', '2023', '٣٤٥']
+
+
+# # Split on non-alphanumeric chars
+# print(re.split(r"\W", "hello, world! python"))  # Output: ['hello', 'world', 'python']
+
+# import re
+
+# # Extract phone numbers
+# text = "Call 555-123-4567 or 888-0000"
+# print( re.findall(r"\d{3}-\d{3}-\d{4}", text))  # ['555-123-4567']
+
+# print (re.split(r"\d", "1234T678A9")) #['', '', '', '', 'T', '', '', 'A', '']
+# print (re.split(r"\d+", "1234T678A9")) #['', 'T', 'A', '']
+
+# # Validate a 4-digit PIN
+# pin = "1234"
+# if re.fullmatch(r"\d{4}", pin):  # True
+#     print("Valid PIN")
+
+# # Extract all standalone numbers
+# print(re.findall(r"\d+", "A1 B23 C456 89alsk7"))  # [['1', '23', '456', '89', '7']
+
+# Remove all digits
+# print (re.sub(r"\d", "", "R2D2 is 3CPO"))  # "RD is CPO"
+
+# # Split on non-digit characters
+# print (re.split(r"\D", "12,34-567890*%#"))  # ['12', '34', '567890', '', '', '']
+# print (re.split(r"\D+", "12,34-567890*%#")) # ['12', '34', '567890', '']
+
+
+# # Extract hashtags
+# tweet = "Loving #Python and #ML_AI!"
+# print (re.findall(r"\w", tweet)) #['L', 'o', 'v', 'i', 'n', 'g', 'P', 'y', 't', 
+#                                  #'h', 'o', 'n', 'a', 'n', 'd', 'M', 'L', '_', 'A', 'I']
+# print (re.findall(r"\w+", tweet)) #['Loving', 'Python', 'and', 'ML_AI']
+# print (re.findall(r"#\w", tweet))  # ['#P', '#M']
+# print (re.findall(r"#\w+", tweet))  #['#Python', '#ML_AI']
+
+# # Validate a username
+# username = "user_123"
+# print (re.findall (r"\w{4,20}", username)) #['user_123']
+# if re.fullmatch(r"\w{4,20}", username):  # True
+#     print("Valid username")
+
+# Split on non-word characters
+# print (re.split(r"\w+", "Hello, world!!!!!"))  # ['', ', ', '!!!!!']
+# print (re.split(r"\W+", "Hello, world!!!!!")) #['Hello', 'world', '']
+
+# # Count symbols in a string
+# print (re.findall(r"\W", "a@@b##c"))  # ['@', '@', '#', '#']
+# print (re.findall(r"\W+", "Hello, world!!!!!"))  # [', ', '!!!!!']
+
+# sentence = "The quick brown fox jumps over the lazy dog."
+# print (re.split(r"\W+", sentence.lower()))
+# # Output: ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog', '']
+
+# #Normal split() comparison
+# testing = "The quick, brown fox jumps over the lazy dog"
+# print (testing.split()) #['The', 'quick,', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+# print (testing.split(sep= ",")) #['The quick', ' brown fox jumps over the lazy dog']
+
+# text = "I don't like spam m@chine$s."
+# print(re.split(r"[^\W']", text))  # Keep apostrophes as part of words
+# # Output: ['I', "don't", 'like', 'spam', 'm', 'chine', 's', '']
+
+# # Replace multiple spaces with one
+# text = "Hello    world"
+# print(re.sub(r"\s+", " ", text))  # "Hello world"
+
+# # Split into words
+# print(re.split(r"\s", "apple ban ana   cherry"))  # ['apple', 'ban', 'ana', '', '', 'cherry']
+
+
+# # Extract non-space chunks
+# print(re.findall(r"\S+", "a ball       cat"))  # ['a', 'ball', 'cat']
+
+# # Check if no whitespace exists
+# if re.search(r"^\S+$", "NoSpaces"):  # True
+#     print("No whitespace")
+
+
+# Match "a" followed by any SINGLE character, then "c"
+# print(re.findall(r"a.c", "abc ajhc a c aXc "))  # ['abc', 'a c', 'aXc']
+
+# # Match 3-character extensions
+# print (re.findall(r"\.\w{3}", "file.txt data.csv"))  # ['.txt', '.csv']
+# print (re.findall(r"\w{2}\.\w{3}", "file.txt datas.csv")) #['le.txt', 'ta.csv']
+# print (re.findall(r".\w{3}", "file.txt data.csv")) #['file', '.txt', ' dat', '.csv']
+
+
+# tweet = "Wow!!! This is SO cool!! #Python"
+# print( re.split(r"\W+", tweet))
+# # Output: ['Wow', 'This', 'is', 'SO', 'cool', 'Python']
+
+# data = "name, age, city; Alice|25|NYC"
+# print (re.split(r"[\W,;|]+", data))
+# # Output: ['name', 'age', 'city', 'Alice', '25', 'NYC']
+
+#Parenthesis example
+# text = "1a2b3c1d2e3f"
+# print(re.findall(r'\d.*\d', text))  # ['1a2b3c1d2e3']
+# # Returns the entire matched string
+
+# print(re.findall(r'\d(.*)\d', text))  # ['a2b3c1d2e']
+# # Returns only what's INSIDE the parentheses
+
+# import re
+# print(re.findall(r'\d(.*?)\d', "1abc2def3"))  # Returns ['abc']
+
+# text = "hello world hello there"
+# matches = re.findall(r"(?:hello )(\w+)", text)
+# print(matches)  # Output: ['world', 'there']
+
+# # Without non-capturing group (same result)
+# print (re.findall(r'hello (\w+)', text))
+
+# import re
+
+# text = "hello hello world, hello python enthusiast , hello regex123"
+# matches = re.findall(r'(?:hello )(\w+)', text)
+# print(matches)  # Output: ['world', 'python', 'regex123']
+
+# # Without non-capturing group (same result)
+# print (re.findall(r'hello (\w+)', text)) #['world', 'python', 'regex123']
+
+# # With multiple capturing groups
+# print (re.findall(r'(hello )(\w+)', text))  
+# # Returns tuples: [('hello ', 'hello'), ('hello ', 'python'), ('hello ', 'regex123')]
+
+# text = "hello hello world, hello python enthusiast , hello regex123"
+# match = re.search(r'(hello )(\w+)', text)
+# print(match.group(0))  # 'hello hello'  (full match)
+# print(match.group(1))  # 'hello '       (first group - with trailing space)
+# print(match.group(2))  # 'hello'        (second group - next word)
+#print(match.group(3))  # ❌ IndexError  (no third group exists)
+
+
+# text = "hello hello world, hello python enthusiast , hello regex123"
+# all_matches = re.findall(r'(hello )(\w+)', text)
+
+# last_groups = [match[-1] for match in all_matches]  # Extract last element of each tuple
+# print(last_groups)  # Output: ['world', 'python', 'regex123']
+
+# #Accessing tuple groups
+# if all_matches:  # Check if any matches exist
+#     last_tuple = all_matches[1]  # Get the second tuple
+#     print(last_tuple)  # Output: ('hello ', 'regex123')
+# else:
+#     print("No matches found")
+
+# import re
+# log = """
+# Error 404: Not Found
+# Error 500: Server Issue
+# Debug 200: OK
+# """
+
+# last_numbers = [re.search(r'\b(\d+)\b', line).group(0) for line in log.split('\n') if line.strip()]
+# print(last_numbers)  # Output: ['404', '500', '200']
+
+
+# #Expanding for understanding
+# log_split = log.split('\n') #['', 'Error 404: Not Found', 'Error 500: Server Issue', 'Debug 200: OK', '']
+# log_split2 = log.split() #['Error', '404:', 'Not', 'Found', 'Error', '500:', 'Server', 'Issue', 'Debug', '200:', 'OK']
+
+# last_numbers=[]
+# last_numbers_object =[]
+# for line in log_split:
+#     if line.strip(): 
+#         last_numbers.append( (re.search(r'\b(\d+)\b', line)).group(1))
+#         last_numbers_object.append( re.search(r'\b(\d+)\b', line)) #objects will be stored
+
+# print(last_numbers_object)# <re.Match object; span=(6, 9), match='404'>, <re.Match object; span=(6, 9), match='500'
+#                             #<re.Match object; span=(6, 9), match='200'>
+# print (last_numbers) # ['404', '500', '200']
+
+# # Showing only 1 group, so index zero and 1 are the same
+# print (last_numbers_object[0].group(0)) # 404
+# print (last_numbers_object[0].group(1)) # 404
+# #print (last_numbers_object[0].group(2)) # IndexError
+
+
+
+
+# log = "ERROR: Disk full (2023-05-15 14:30)"
+# match = re.search(
+#     r"(?P<level>\w+): (?P<message>.+) \((?P<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2})\)", 
+#     log
+# )
+
+# print(match.groupdict())
+# # Output: {'level': 'ERROR', 'message': 'Disk full', 'date': '2023-05-15 14:30'}
+
+
+# import re
+
+# text = "Event date: 2023-10-15"
+# pattern = r"(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})"
+
+# match = re.search(pattern, text)
+# if match:
+#     print(f"Year: {match.group('year')}")   # 2023
+#     print(f"Month: {match.group('month')}") # 10
+#     print(f"Day: {match.group('day')}")     # 15
+
+# log = "ERROR [2023-10-15 14:30:00] Disk full"
+# pattern = r"(?P<level>\w+)\s+\[(?P<date>\d{4}-\d{2}-\d{2})\s+(?P<time>\d{2}:\d{2}:\d{2})\]\s+(?P<message>.*)"
+
+# match = re.search(pattern, log)
+# print (match) #<re.Match object; span=(0, 37), match='ERROR [2023-10-15 14:30:00] Disk full'>
+# if match:
+#     print(f"Level: {match.group('level')}")   # ERROR
+#     print(f"Date: {match.group('date')}")     # 2023-10-15
+#     print(f"Time: {match.group('time')}")     # 14:30:00
+#     print(f"Message: {match.group('message')}") # Disk full
+
+# text = "John:30, Alice:25, Bob:28"
+# matches = re.findall(r"(?P<name>\w+):(?P<age>\d+)", text)
+# # Output: [('John', '30'), ('Alice', '25'), ('Bob', '28')]
+
+# for name, age in matches:
+#     print(f"{name} is {age} years old")
+
+# print (re.sub(r"(?P<first>\w+) (?P<last>\w+)", r"\g<last>, \g<first>", "John Doe"))
+# # Output: "Doe, John"
+
+# import re
+
+# text = "the the quick brown fox fox jumps"
+# print (re.findall(r'(\w+)\s+\1', text))  # ['the', 'fox'] \1 refers to the first group
+# print (re.findall(r'(\w+)\s+', text)) #['the', 'the', 'quick', 'brown', 'fox', 'fox']
+# print (re.findall(r'(\w+)', text)) #['the', 'the', 'quick', 'brown', 'fox', 'fox', 'jumps']
+
+# texts = ['"Hello"', "'World'", '"Invalid\'']
+# pattern = r'(["\'])(.*?)\1'  # \1 matches the same quote type
+
+# for text in texts:
+#     print (re.search(pattern, text))
+      
+# # Output
+# # <re.Match object; span=(0, 7), match='"Hello"'>
+# # <re.Match object; span=(0, 7), match="'World'">
+# # None'
+
+# texts = ['"Hello"', "'World'", "Python", '"Invalid\'']
+# for text in texts:
+#     print(re.findall(r'(["\'])(.*?)\1', text))
+
+
+# html = "<h1>Title</h1> <p>Mismatch</h2>"
+# pattern = r'<(\w+)>(.*?)</\1>'  # \1 matches the same tag name
+
+# print(re.findall(pattern, html))  
+# # Output: [('h1', 'Title')]  # Skips the mismatched </h2>
+# print(re.search(pattern, html)) 
+# #Output: <re.Match object; span=(0, 14), match='<h1>Title</h1>'>
+
+# for match in re.finditer(r'\d+', '42 apples, 13 oranges'):
+#     print(match.group(), match.span())  
+
+# #Output:# 42 (0, 2)
+#         # 13 (11, 13)
+
+# text = '"Hello" and \'world\' but not "invalid\''
+# print (re.findall(r'(["])(.*?)\1', text))  # Output: [('"', 'Hello')
+# print (re.findall(r'(["\'])(.*?)\1', text)) # Output: [('"', 'Hello'), ("'", 'world')]
+# print (re.search(r'(["\'])(.*?)\1', text)) # <re.Match object; span=(0, 7), match='"Hello"'>
+
+# dates = "2023/10/15 2023-10-15 2023.10-15"  # Last is invalid
+# pattern = r'(\d{4})([/\-.])(\d{2})\2(\d{2})'  # \2 = separator
+# print(re.findall(pattern, dates))
+# # Output: [('2023', '/', '10', '15'), ('2023', '-', '10', '15')]
+# print(re.search(pattern, dates))
+# # Output: <re.Match object; span=(0, 10), match='2023/10/15'>
+
+# text = "John says hello to John Smith and Lorie"
+# pattern = r'(?P<name>\w+)\s.*?(?P=name)'  # Matches repeated names
+# match = re.search(pattern, text)
+# print (match) # <re.Match object; span=(0, 23), match='John says hello to John'>
+# print(match.group())  # "John says hello to John"
+
+# text = "John says hello to John Smith and Lorie"
+# pattern = r'(?P<name>\w+)\s.*?(?P=name)'
+# print (re.findall(pattern, text)) #Output : ['John']
+
+# pattern = r'(?:\w+)\s.*?(?:\w+)'  # Non-capturing groups
+# print(re.findall(pattern, text))  # Output: ['John says', 'hello to', 'John Smith', 'and Lorie']
+
+# print (re.finditer(pattern, text)) # <callable_iterator object at 0x00000255A749A7D0>
+# for match in re.finditer(pattern, text):
+#     print("Full match:", match.group())  # "John says hello to John"
+#     print("Captured name:", match.group('name'))  # "John"
+
+
+
+
+# html = "<div class='header'>Welcome</div>"
+# match = re.search(r"<(\w+)(?:\s+([^>]+))?>([^<]+)</\1>", html)
+# print(match) # <re.Match object; span=(0, 33), match="<div class='header'>Welcome</div>">
+# print(match.groups())
+# # Output: ('div', "class='header'", 'Welcome')
+
+# print (re.findall(r"<(\w+)(?:\s+([^>]+))?>([^<]+)</\1>", html))
+# #Output: [('div', "class='header'", 'Welcome')]
+
+
+import re
+
+# text = "Date: 2023-10-15"
+# pattern = r'((\d{4})-(\d{2})-(\d{2}))'  # Nested groups
+
+# match = re.search(pattern, text)
+# if match:
+#     print(f"Full match: {match.group(0)}")  # '2023-10-15'
+#     print(f"Group 1 (outer): {match.group(1)}")  # '2023-10-15' (entire date)
+#     print(f"Group 2 (year): {match.group(2)}")   # '2023'
+#     print(f"Group 3 (month): {match.group(3)}")  # '10'
+#     print(f"Group 4 (day): {match.group(4)}")    # '15'
+
+# print(re.findall(pattern, text)) #[('2023-10-15', '2023', '10', '15')]
+
+# html = "<div><span>Hello</span></div>"
+# pattern = r'(<(\w+)>(.*?)</\2>)'  # \2 refers to the tag name (\w+)
+
+# print (re.findall(pattern, html))
+# #[('<div><span>Hello</span></div>', 'div', '<span>Hello</span>')]
+
+# match = re.search(pattern, html)
+# if match:
+#     print(f"Group 1 (full tag): {match.group(1)}")  # '<span>Hello</span>'
+#     print(f"Group 2 (tag name): {match.group(2)}")  # 'span'
+#     print(f"Group 3 (content): {match.group(3)}")   # 'Hello'
+
+
+# import re
+
+# text = "Prices: $20, €30, ¥100, 50 USD"
+# pattern = r'(?:(USD|\$)|(€|EUR)|(¥|JPY))\s*(\d+)'
+
+# print(re.finditer(pattern, text)) #<callable_iterator object at 0x000002018334B5B0>
+
+# for match in re.finditer(pattern, text):
+#     if match.group(1):  # $ or USD
+#         print(f"USD: {match.group(4)}")
+#     elif match.group(2):  # € or EUR
+#         print(f"EUR: {match.group(4)}")
+#     elif match.group(3):  # ¥ or JPY
+#         print(f"JPY: {match.group(4)}")
+
+# print(re.search(pattern, text)) #<re.Match object; span=(8, 11), match='$20'>
+# print(re.findall(pattern, text)) # ('$', '', '', '20'), ('', '€', '', '30'), ('', '', '¥', '100')]
+
+
+# emails = ["user@example.com", "invalid@domain", "admin@test.org", "admin@gmail.com"]
+# pattern = r'^(\w+)@(?:(gmail\.com)|(example\.com)|(test\.org))$'
+
+# for email in emails:
+#     match = re.match(pattern, email)
+#     if match:
+#         print(f"Valid: {email}")
+#         if match.group(2): print("  - Gmail detected")
+        
+# for email in emails:
+#     print(re.search(pattern, email)) # <re.Match object; span=(0, 15), match='admin@gmail.com'>
+
+# for email in emails:
+#     print(re.findall(pattern, email)) 
+
+
+texts = ["Mr. Smith", "Ms. Doe", "Dr. Brown", "Alice"]
+pattern = r"(?:Mr|Ms|Dr)\.?\s+(\w+)|(\w+)"
+
+for text in texts:
+    print(re.findall(pattern, text))
+# Output: 
+# [('Smith', '')]
+# [('Doe', '')]
+# [('Brown', '')]
+# [('', 'Alice')]
+
+for text in texts:
+    print(re.search(pattern, text))
+#Output:
+# <re.Match object; span=(0, 9), match='Mr. Smith'>
+# <re.Match object; span=(0, 7), match='Ms. Doe'>
+# <re.Match object; span=(0, 9), match='Dr. Brown'>
+# <re.Match object; span=(0, 5), match='Alice'>
