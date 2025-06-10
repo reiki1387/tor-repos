@@ -77,3 +77,30 @@ if __name__ == "__main__":
     a_demo_list = [1, 2.7, 3.5, 4, 5, 6, 7]
     combined_numbers = mutate(a_demo_list)
     print(combined_numbers)
+
+
+
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
+
+# Sample data preparation (replace with your dataset)
+# X_train: Input features (e.g., order book depth, bid-ask spreads)
+# y_train: Target variable (e.g., price reversal signals)
+X_train = np.random.rand(1000, 60, 5)  # 1000 samples, 60 time steps, 5 features
+y_train = np.random.randint(0, 2, 1000)  # Binary classification (0: no reversal, 1: reversal)
+
+# Define 1D CNN model
+model = Sequential()
+model.add(Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=(X_train.shape[1], X_train.shape[2])))
+model.add(MaxPooling1D(pool_size=2))
+model.add(Flatten())
+model.add(Dense(50, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))  # Binary classification output
+
+# Compile the model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
