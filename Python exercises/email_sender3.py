@@ -12,7 +12,7 @@ def validate_email(email):
     # This pattern checks for standard email format: name@domain.tld
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     # Return True if the email matches the pattern, False otherwise
-    return re.match(pattern, email) is not None
+    return re.match(pattern, email) is not None # makes the return value a boolean instead of string
 
 def get_email_credentials():
     """
@@ -23,7 +23,8 @@ def get_email_credentials():
     email = os.getenv('SMTP_EMAIL')  # Get email from SMTP_EMAIL environment variable
     password = os.getenv('SMTP_PASSWORD')  # Get password from SMTP_PASSWORD environment variable
     
-    # If environment variables aren't set, ask user for input
+    # This "if"-statement will handle when the os.getenv variable is not set
+    # In our code, environment variables aren't set, instead of setting we ask user for input
     if not email or not password:
         print("Environment variables not found. Please enter your credentials:")
         

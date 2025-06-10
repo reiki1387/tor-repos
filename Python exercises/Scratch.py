@@ -3116,21 +3116,127 @@ import re
 #     print(re.findall(pattern, email)) 
 
 
-texts = ["Mr. Smith", "Ms. Doe", "Dr. Brown", "Alice"]
-pattern = r"(?:Mr|Ms|Dr)\.?\s+(\w+)|(\w+)"
+# texts = ["Mr. Smith", "Ms. Doe", "Dr. Brown", "Alice"]
+# pattern = r"(?:Mr|Ms|Dr)\.?\s+(\w+)|(\w+)"
 
-for text in texts:
-    print(re.findall(pattern, text))
+# for text in texts:
+#     print(re.findall(pattern, text))
 # Output: 
 # [('Smith', '')]
 # [('Doe', '')]
 # [('Brown', '')]
 # [('', 'Alice')]
 
-for text in texts:
-    print(re.search(pattern, text))
+# for text in texts:
+#     print(re.search(pattern, text))
 #Output:
 # <re.Match object; span=(0, 9), match='Mr. Smith'>
 # <re.Match object; span=(0, 7), match='Ms. Doe'>
 # <re.Match object; span=(0, 9), match='Dr. Brown'>
 # <re.Match object; span=(0, 5), match='Alice'>
+
+# import re
+
+# # Match 'a', 'b', or 'c'
+# print(re.findall(r"[abc]", "apple banana cherry"))  
+# # Output: ['a', 'b', 'a', 'a', 'c']
+# print(re.search(r"[abc]", "apple banana cherry"))
+# # output: <re.Match object; span=(0, 1), match='a'>  
+
+# Capture a vowel followed by 2 digits
+# match = re.search(r"([aeiou]\d{2})", "a42 b99 e15")
+
+# print(re.search(r"([aeiou]\d{2})", "a42 b99 e15"))
+# #Output: <re.Match object; span=(0, 3), match='a42'>
+# print(match.group(1))  # Output: 'a42'
+
+# print(re.findall(r"([aeiou]\d{2})", "a42 b99 e15"))
+# #Output: ['a42', 'e15']
+
+
+# #Captures the whole pattern
+# print(re.findall(r"([a-z]+\d+)", "abc defg123 hi joke123")) #  Output: ['defg123', 'joke123']
+# print(re.findall(r"[a-z]+\d+", "abc defg123 hi joke123"))  # Output: ['defg123', 'joke123']
+
+# #findall finds the pattern but only captures what is inside ()
+# print(re.findall(r"([a-z]+)\d+", "abc defg123 hi joke123")) #  Output: ['defg', 'joke']
+
+# #search has the same output
+# match1=re.search(r"([a-z]+)\d+", "abc defg123 hi joke345") #ALL Output: <re.Match object; span=(4, 11), match='defg123'>
+# print(match1.group(0)) #Output: defg123
+# print(match1.group(1)) # Output :defg
+
+# match2=re.search(r"[a-z]+(\d+)", "abc defg123 hi joke345") #ALL Output: <re.Match object; span=(4, 11), match='defg123'>
+# print(match1.group(0)) # defg123
+# print(match2.group(1)) #Output: 123
+# print(re.search(r"[a-z]+\d+", "abc defg123 hi joke345")) #ALL Output: <re.Match object; span=(4, 11), match='defg123'>
+
+
+# match1= re.search(r"[a|b](d|e)\d{2}", "ad42 b99 ae15") # Output: <re.Match object; span=(0, 3), match='a42'>
+# print(match1.group(0)) #Output: ad42
+# print(match1.group(1)) #Output: d
+# #print(match1.group(2)) #IndexError
+
+# match2= re.search(r"[a|b](d|e)(\d{2})", "ad42 b99 ae15") # Output: <re.Match object; span=(0, 3), match='a42'>
+# print(match2.group(0)) # Output: ad42
+# print(match2.group(1)) # Output: d
+# print(match2.group(2)) # Output: 42
+
+# #finds the pattern BUT ONLY CAPTURES what is in the ()
+# print(re.findall(r"[a|b](d|e)\d{2}", "ad42 b99 ae15"))
+# #Output: ['d', 'e']
+
+# text = "apple,banana;cherry"
+# parts = re.split(r"[,;]", text)  # Splits on ',' or ';'
+# print(parts)  # Output: ['apple', 'banana', 'cherry']
+
+# # If capturing parentheses are used in pattern, then the text of all
+# # groups in the pattern are also returned as part of the resulting list
+# parts2 = re.split(r"(,;)", text)  
+# print(parts2)  # Output: ['apple,banana;cherry']
+
+# import regex  # Python's `regex` module (not `re`)
+# text = "Résumé 2023 – ٣٤٥"
+# print(regex.findall(r"\p{L}+", text))  # Output: ['Résumé']
+
+import regex  # Python's `regex` module (not `re`)
+
+# Python's `regex` module (supports `\p{}`)
+
+#Extract words from text containing non-English characters (e.g., French, Arabic)
+text = "Résumé 2023 – السلام عليكم"
+words = regex.findall(r"\p{L}+", text, regex.UNICODE)
+print(words)
+# Output: ['Résumé', 'السلام', 'عليكم']
+
+
+#Check if a name contains only letters (including accents).
+def is_valid_name(name):
+    return bool(regex.fullmatch(r"^\p{L}+(?: \p{L}+)*$", name, regex.UNICODE))
+
+print(is_valid_name("María García"))  # True
+print(is_valid_name("علي حسن"))      # True
+print(is_valid_name("John123"))      # False
+
+
+# Extract numbers in any script (e.g., Arabic ١٢٣).
+text = "Price: ٣٤٥ (Arabic), १२३ (Devanagari)"
+numbers = regex.findall(r"\p{N}+", text, regex.UNICODE)
+print(numbers)
+# Output: ['٣٤٥', '१२३']
+
+#Extract all currency symbols (e.g., €, ¥, ₹).
+text = "Prices: $100, €90, ¥5000, ₹200"
+currencies = regex.findall(r"\p{Sc}", text, regex.UNICODE)
+print(currencies)
+# Output: ['$', '€', '¥', '₹']
+
+text = "Hello! ¿Cómo estás? 你好！"
+sentences = regex.split(r"\p{P}+", text, regex.UNICODE)
+print(sentences)
+# Output: ['Hello', '¿Cómo estás', '你好', '']
+
+text = "I ❤️ Python! 🐍 is awesome 👍"
+emoji = regex.findall(r"\p{Emoji}", text, regex.UNICODE)
+print(emoji)
+# Output: ['❤', '🐍', '👍']
