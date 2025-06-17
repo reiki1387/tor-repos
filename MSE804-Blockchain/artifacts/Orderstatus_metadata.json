@@ -1,0 +1,79 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "currentStatus",
+				"outputs": [
+					{
+						"internalType": "enum Orderstatus.Status",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getStatus",
+				"outputs": [
+					{
+						"internalType": "enum Orderstatus.Status",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "setShipped",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"MSE804-Blockchain/array_enum.sol": "Orderstatus"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"MSE804-Blockchain/array_enum.sol": {
+			"keccak256": "0xcf847352d258900472bd509e2d848743fb763e031cbe8562ea850581470ced7b",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://6077b7625ad452712e1e3d740dab21f3cf9306cfa5d1f377d0cc2d7ad18da656",
+				"dweb:/ipfs/QmWdCCzg9JS3AX2NcLoZCxycxT9Q3pU1xHiYEvxYg9dym9"
+			]
+		}
+	},
+	"version": 1
+}
