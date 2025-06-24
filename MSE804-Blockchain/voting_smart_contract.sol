@@ -1,4 +1,4 @@
-voting smart contract 
+//voting smart contract 
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
  
@@ -47,9 +47,6 @@ contract Voting{
  
     function getVote(address voterAddress) external view returns (address candidateAddress){
         return votes[voterAddress].receiver;
-    }
-   
- 
     }
 }
  
