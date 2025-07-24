@@ -1,0 +1,72 @@
+[
+  {
+    "ID": 1,
+    "Name": "Alice",
+    "Age": 25,
+    "Department": "HR",
+    "Salary": 50000
+  },
+  {
+    "ID": 2,
+    "Name": "Bob",
+    "Age": 30,
+    "Department": "Finance",
+    "Salary": 60000
+  },
+  {
+    "ID": 3,
+    "Name": "Charlie",
+    "Age": 28,
+    "Department": "IT",
+    "Salary": 55000
+  },
+  {
+    "ID": 4,
+    "Name": "Diana",
+    "Age": 35,
+    "Department": "Marketing",
+    "Salary": 62000
+  },
+  {
+    "ID": 5,
+    "Name": "Evan",
+    "Age": 40,
+    "Department": "Sales",
+    "Salary": 70000
+  },
+  {
+    "ID": 6,
+    "Name": "Fiona",
+    "Age": 27,
+    "Department": "HR",
+    "Salary": 51000
+  },
+  {
+    "ID": 7,
+    "Name": "George",
+    "Age": 33,
+    "Department": "IT",
+    "Salary": 58000
+  },
+  {
+    "ID": 8,
+    "Name": "Hannah",
+    "Age": 29,
+    "Department": "Finance",
+    "Salary": 61000
+  },
+  {
+    "ID": 9,
+    "Name": "Ian",
+    "Age": 31,
+    "Department": "Marketing",
+    "Salary": 63000
+  },
+  {
+    "ID": 10,
+    "Name": "Jane",
+    "Age": 26,
+    "Department": "Sales",
+    "Salary": 52000
+  }
+]
